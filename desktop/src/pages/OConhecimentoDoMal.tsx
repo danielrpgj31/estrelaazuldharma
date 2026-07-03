@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import healingPotion from '../../imagens/a_pocao_da_cura.png';
+import knowledgeOfEvil from '../../imagens/o_conhecimento_do_mal.png';
 
-const IntroducaoNivel2: React.FC = () => {
+const OConhecimentoDoMal: React.FC = () => {
   const { user, contents } = useAuth();
   const navigate = useNavigate();
 
@@ -23,26 +23,24 @@ const IntroducaoNivel2: React.FC = () => {
             <div className="w-10 h-10 rounded-full bg-purple-800 flex items-center justify-center border border-purple-500">
               <span className="text-purple-200 font-bold text-xl">★</span>
             </div>
-            <span className="text-xl font-serif text-purple-200 tracking-widest">INTRODUÇÃO NÍVEL 2</span>
+            <span className="text-xl font-serif text-purple-200 tracking-widest">O CONHECIMENTO DO MAL</span>
           </div>
           <div className="text-purple-300">Conteúdo exclusivo para membros autenticados</div>
         </div>
       </nav>
 
-      <header className="relative overflow-hidden bg-slate-950">
+      <header className="relative overflow-hidden">
         <img
-          src={healingPotion}
-          alt="A poção da cura"
-          className="w-full h-[28rem] object-cover object-[50%_25%] scale-[0.72] opacity-90"
+          src={knowledgeOfEvil}
+          alt="O conhecimento do mal"
+          className="w-full h-96 object-cover object-[50%_30%] opacity-90"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-900/20 to-slate-950/90" />
         <div className="absolute inset-0 flex items-center justify-center px-4">
           <div className="max-w-3xl text-center">
-            <h1 className="text-4xl sm:text-5xl font-serif text-purple-100 mb-4">Bem-vindo à Introdução do Nível 2 - O Abismo -</h1>
+            <h1 className="text-4xl sm:text-5xl font-serif text-purple-100 mb-4">O conhecimento do Mal</h1>
             <p className="text-lg sm:text-xl text-purple-200 leading-relaxed">
-              Este módulo aprofunda os ensinamentos sobre o inconsciente Individual e Coletivo, 
-              com direcionamento de estudo e práticas que fortalecam o poder de análise, de acolhimento,
-              e de escuta interna. 
+              Neste capítulo, abordaremos os conhecimentos para iluminar e seguir em frente, ou melhor, para baixo, para as profundezas de nossa mente, nosso inconsciente, nosso abismo.
             </p>
           </div>
         </div>
@@ -50,16 +48,16 @@ const IntroducaoNivel2: React.FC = () => {
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <section className="bg-slate-800/70 border border-purple-900 p-10 rounded-xl shadow-xl shadow-purple-950/20">
-          <h2 className="text-3xl font-serif text-purple-100 mb-6">A jornada continua</h2>
+          <h2 className="text-3xl font-serif text-purple-100 mb-6">Explorando as profundezas</h2>
           <p className="text-lg text-purple-200 leading-relaxed mb-6">
-            Nesta fase inicial do Nível 2, você encontrará reflexões e vídeos que fortalecem sua prática e abrem espaço para novas orientações internas.
+            Este capítulo convida você a mergulhar nos terrenos sombrios do inconsciente e a descobrir como a luz também nasce do confronto com o abismo interior.
           </p>
           <div className="space-y-4 text-purple-300 text-lg leading-relaxed">
             <p>
-              Os materiais apresentados aqui estão alinhados com o espírito do Nível 1, mas oferecem uma nova profundidade. Permita que a intuição conduza sua atenção e observe como o aprendizado se expande.
+              A jornada para baixo não é derrota, é coragem. Ao conhecer o mal, aprendemos a iluminá-lo sem medo e a transmutar o que antes parecia apenas obscuro.
             </p>
             <p>
-              Acompanhe os vídeos enquanto integra cada reflexão e mantenha a respiração consciente. A cura acontece quando o corpo, a mente e o coração são convidados a acolher a experiência.
+              Use estas páginas como guias que ajudam a trazer consciência para as camadas profundas da mente, onde residem os símbolos, os traumas e as forças que moldam nossa realidade.
             </p>
           </div>
         </section>
@@ -68,7 +66,7 @@ const IntroducaoNivel2: React.FC = () => {
           <div className="flex items-center justify-between gap-4 mb-8">
             <div>
               <h3 className="text-3xl font-serif text-purple-200">Vídeos recomendados</h3>
-              <p className="text-purple-400 mt-2">Acompanhe os mesmos thumbnails e vídeos da Introdução Nível 1 para manter a continuidade do estudo.</p>
+              <p className="text-purple-400 mt-2">Veja os vídeos que auxiliam nesta travessia do consciente para o inconsciente.</p>
             </div>
           </div>
 
@@ -110,7 +108,7 @@ const IntroducaoNivel2: React.FC = () => {
           </Link>
           <div className="rounded-xl bg-purple-950/20 border border-purple-700 p-5">
             <p className="text-purple-300 font-semibold">Próximo passo:</p>
-            <p className="text-purple-400">Continue com atenção plena, observe as sensações e acolha a sabedoria que surge a cada prática.</p>
+            <p className="text-purple-400">Permaneça atento às profundezas e permita que a cura ocorra quando o conhecimento do mal é trazido à luz.</p>
           </div>
         </div>
       </main>
@@ -120,11 +118,9 @@ const IntroducaoNivel2: React.FC = () => {
           <div className="rounded-3xl bg-slate-800/80 border border-purple-900 p-10 shadow-xl shadow-purple-950/10">
             <h4 className="text-2xl font-serif text-purple-100 mb-4">Reflexão final</h4>
             <p className="text-purple-300 leading-relaxed mb-4">
-              O Nível 2 se inicia com o convite para aprofundar a presença. Use este momento para internalizar os ensinamentos e permitir que a prática se fortaleça.
+              O conhecimento do mal revela não apenas as sombras, mas o caminho para integrá-las e transcender o medo. Ele é o portal para a verdadeira transformação.
             </p>
-            <p className="text-purple-400">
-              © 2026 Instituto Estrela Azul de Dharma. Área interna protegida.
-            </p>
+            <p className="text-purple-400">© 2026 Instituto Estrela Azul de Dharma. Área interna protegida.</p>
           </div>
         </div>
       </footer>
@@ -132,4 +128,4 @@ const IntroducaoNivel2: React.FC = () => {
   );
 };
 
-export default IntroducaoNivel2;
+export default OConhecimentoDoMal;

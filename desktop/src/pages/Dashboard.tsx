@@ -68,6 +68,12 @@ const Dashboard: React.FC = () => {
             >
               Entrar em Introdução Nível 2
             </Link>
+            <Link
+              to="/o-conhecimento-do-mal"
+              className="inline-flex justify-center px-6 py-3 bg-slate-900 text-purple-100 font-semibold tracking-wider hover:bg-slate-800 transition-all duration-300 border border-purple-500"
+            >
+              Entrar em O Conhecimento do Mal
+            </Link>
           </div>
           <Link
             to="/"

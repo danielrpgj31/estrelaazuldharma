@@ -52,3 +52,10 @@ npm run web      # Para navegador web
 
 - **Desktop**: React 19, TypeScript, Vite, Tailwind CSS
 - **Mobile**: React Native, Expo, TypeScript, AsyncStorage
+
+## Objetivos
+
+Projeto com objetivo de construir uma consciencia coletiva forte,
+sustentada pelo conhecimento, autoconhecimento e prática do bem sincronizada.
+
+Hieróglifo: login e senha para níveis mais do curso.

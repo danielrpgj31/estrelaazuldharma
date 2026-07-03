@@ -1,134 +1,136 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-
-export interface User {
-  id?: number;
-  username: string;
-  password: string;
-  email: string;
-  createdAt: Date;
-}
-
-export interface Content {
-  id?: number;
-  title: string;
-  body: string;
-  authorId: number;
-  createdAt: Date;
-  thumbnailUrl?: string;
-  youtubeUrl?: string;
-}
-
-const getUsers = (): User[] => {
-  const users = localStorage.getItem('users');
-  if (!users) {
-    const defaultUsers: User[] = [
-      {
-        id: 1,
-        username: 'admin',
-        password: 'admin123',
-        email: 'admin@estrelaazul.org',
-        createdAt: new Date()
-      }
-    ];
-    localStorage.setItem('users', JSON.stringify(defaultUsers));
-    return defaultUsers;
-  }
-  return JSON.parse(users);
-};
-
-const getContents = (): Content[] => {
-  const contents = localStorage.getItem('contents');
-  if (!contents) {
-    const defaultContents: Content[] = [
-      {
-        id: 1,
-        title: 'Os Mistérios da Estrela Azul',
-        body: 'Conheça os segredos ocultos da antiga ordem que guarda a sabedoria da Estrela Azul...',
-        authorId: 1,
-        thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
-        youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        createdAt: new Date()
-      },
-      {
-        id: 2,
-        title: 'Rituais e Cerimônias',
-        body: 'Aprenda sobre os ritos sagrados praticados há séculos pelos nossos membros...',
-        authorId: 1,
-        thumbnailUrl: 'https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg',
-        youtubeUrl: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ',
-        createdAt: new Date()
-      },
-      {
-        id: 3,
-        title: 'Introdução Nível 1 - Vídeo Exclusivo',
-        body: 'Assista à introdução especial do Instituto com reflexões e orientações para sua jornada interna.',
-        authorId: 1,
-        thumbnailUrl: 'https://img.youtube.com/vi/cyQ-W5dORz8/hqdefault.jpg',
-        youtubeUrl: 'https://www.youtube.com/watch?v=cyQ-W5dORz8',
-        createdAt: new Date()
-      }
-    ];
-    localStorage.setItem('contents', JSON.stringify(defaultContents));
-    return defaultContents;
-  }
-  return JSON.parse(contents);
-};
+import type { User, Content, StoredUser } from '../types/app';
+import { db } from '../database/db';
+import { derivePasswordHash, generateSalt } from '../database/crypto';
 
 interface AuthContextType {
   user: User | null;
-  login: (username: string, password: string) => boolean;
-  logout: () => void;
-  register: (username: string, password: string, email: string) => boolean;
+  login: (username: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
+  register: (username: string, password: string, email: string) => Promise<boolean>;
   contents: Content[];
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const defaultAdminUsername = 'admin';
+const defaultAdminEmail = 'admin@estrelaazul.org';
+const defaultAdminPassword = 'admin123';
+
+const defaultContents: Omit<Content, 'id'>[] = [
+  {
+    title: 'Os Mistérios da Estrela Azul',
+    body: 'Conheça os segredos ocultos da antiga ordem que guarda a sabedoria da Estrela Azul...',
+    authorId: 1,
+    thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    createdAt: new Date().toISOString()
+  },
+  {
+    title: 'Rituais e Cerimônias',
+    body: 'Aprenda sobre os ritos sagrados praticados há séculos pelos nossos membros...',
+    authorId: 1,
+    thumbnailUrl: 'https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ',
+    createdAt: new Date().toISOString()
+  },
+  {
+    title: 'Introdução Nível 1 - Vídeo Exclusivo',
+    body: 'Assista à introdução especial do Instituto com reflexões e orientações para sua jornada interna.',
+    authorId: 1,
+    thumbnailUrl: 'https://img.youtube.com/vi/cyQ-W5dORz8/hqdefault.jpg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=cyQ-W5dORz8',
+    createdAt: new Date().toISOString()
+  }
+];
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [contents, setContents] = useState<Content[]>([]);
 
   useEffect(() => {
-    getUsers();
-    setContents(getContents());
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const initialize = async () => {
+      await db.open();
+      const users = await db.getDecryptedUsers();
+      if (!users.some((u) => u.username === defaultAdminUsername)) {
+        const passwordSalt = generateSalt();
+        const passwordHash = await derivePasswordHash(defaultAdminPassword, passwordSalt);
+        const adminUser: StoredUser = {
+          username: defaultAdminUsername,
+          email: defaultAdminEmail,
+          passwordHash,
+          passwordSalt,
+          createdAt: new Date().toISOString()
+        };
+        await db.addEncryptedUser(adminUser);
+      }
+
+      const contentsCount = await db.contents.count();
+      if (contentsCount === 0) {
+        await db.contents.bulkAdd(defaultContents);
+      }
+
+      const storedUser = await db.getCurrentUser();
+      if (storedUser) {
+        setUser(storedUser);
+      }
+
+      setContents(await db.contents.toArray());
+    };
+
+    initialize();
   }, []);
 
-  const login = (username: string, password: string): boolean => {
-    const users = getUsers();
-    const foundUser = users.find(u => u.username === username && u.password === password);
-    if (foundUser) {
-      setUser(foundUser);
-      localStorage.setItem('currentUser', JSON.stringify(foundUser));
-      return true;
+  const login = async (username: string, password: string): Promise<boolean> => {
+    const users = await db.getDecryptedUsers();
+    const foundUser = users.find((u) => u.username === username);
+    if (!foundUser) {
+      return false;
     }
-    return false;
+
+    const passwordHash = await derivePasswordHash(password, foundUser.passwordSalt);
+    if (passwordHash !== foundUser.passwordHash) {
+      return false;
+    }
+
+    const safeUser: User = {
+      id: foundUser.id,
+      username: foundUser.username,
+      email: foundUser.email,
+      createdAt: foundUser.createdAt
+    };
+    setUser(safeUser);
+    await db.setCurrentUser(safeUser);
+    return true;
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
-    localStorage.removeItem('currentUser');
+    await db.clearCurrentUser();
   };
 
-  const register = (username: string, password: string, email: string): boolean => {
-    const users = getUsers();
-    const existingUser = users.find(u => u.username === username);
+  const register = async (
+    username: string,
+    password: string,
+    email: string
+  ): Promise<boolean> => {
+    const users = await db.getDecryptedUsers();
+    const existingUser = users.find((u) => u.username === username);
     if (existingUser) {
       return false;
     }
-    const newUser: User = {
-      id: users.length + 1,
+
+    const passwordSalt = generateSalt();
+    const newUser: StoredUser = {
       username,
-      password,
       email,
-      createdAt: new Date()
+      passwordSalt,
+      passwordHash: await derivePasswordHash(password, passwordSalt),
+      createdAt: new Date().toISOString()
     };
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
+
+    await db.addEncryptedUser(newUser);
     return true;
   };
 

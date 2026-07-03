@@ -11,11 +11,11 @@ const Register: React.FC = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    const successReg = register(username, password, email);
+    const successReg = await register(username, password, email);
     if (successReg) {
       setSuccess('Conta criada com sucesso! Redirecionando...');
       setTimeout(() => navigate('/login'), 2000);

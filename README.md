@@ -58,4 +58,4 @@ npm run web      # Para navegador web
 Projeto com objetivo de construir uma consciencia coletiva forte,
 sustentada pelo conhecimento, autoconhecimento e prática do bem sincronizada.
 
-Hieróglifo: login e senha para níveis mais do curso.
+Hieróglifo: login e senha para níveis mais profundos do curso.

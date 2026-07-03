@@ -1,0 +1,7 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#7c3aed" rx="100"/>
+  
+  <!-- Star -->
+  <text x="256" y="340" font-size="256" font-weight="bold" fill="white" text-anchor="middle" font-family="serif">★</text>
+</svg>

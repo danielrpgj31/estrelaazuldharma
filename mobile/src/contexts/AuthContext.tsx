@@ -23,12 +23,24 @@ const defaultContents: Omit<Content, 'id'>[] = [
     title: 'Os Mistérios da Estrela Azul',
     body: 'Conheça os segredos ocultos da antiga ordem que guarda a sabedoria da Estrela Azul...',
     authorId: 1,
+    thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     createdAt: new Date().toISOString()
   },
   {
     title: 'Rituais e Cerimônias',
     body: 'Aprenda sobre os ritos sagrados praticados há séculos pelos nossos membros...',
     authorId: 1,
+    thumbnailUrl: 'https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ',
+    createdAt: new Date().toISOString()
+  },
+  {
+    title: 'Introdução Nível 1 - Vídeo Exclusivo',
+    body: 'Assista à introdução especial do Instituto com reflexões e orientações para sua jornada interna.',
+    authorId: 1,
+    thumbnailUrl: 'https://img.youtube.com/vi/cyQ-W5dORz8/hqdefault.jpg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=cyQ-W5dORz8',
     createdAt: new Date().toISOString()
   }
 ];

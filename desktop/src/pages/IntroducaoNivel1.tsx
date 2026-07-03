@@ -32,7 +32,9 @@ const IntroducaoNivel1: React.FC = () => {
         <section className="bg-slate-800/70 border border-purple-900 p-10 rounded-xl shadow-xl shadow-purple-950/20">
           <h1 className="text-4xl font-serif text-purple-100 mb-6">Bem-vindo à Introdução Nível 1</h1>
           <p className="text-lg text-purple-200 leading-relaxed mb-6">
-            Esta área interna é reservada exclusivamente aos membros que efetuaram login. Aqui você encontrará o primeiro módulo introdutório dos ensinamentos do Instituto Estrela Azul de Dharma.
+            Aqui, vamos explorar as técnicas para autoanálise baseadas em conhecimento milenar, a fonte de todo iniciático.
+            Vamos ir além da exploração básica, vamos aprender a percorrer um terreno árido, seco, molhado, encharcado e infernal que nossa mente, nossos sentimentos, nossos desejos e nossas pulsões e libido mais animal que existe. 
+            No nível 1, vamos aprender também a explorar os saberes universais, vamos aprender os saberes que impactam de fora para dentro. Vamos aprender a identificar os fatores que ajustam nossas virtudes chaves de mudança e da verdadeira felicidade e liberdade. Vamos aprender as bases para entender o significado do capítulo especial "O conhecimento do Mal"
           </p>
           <div className="space-y-4 text-purple-300 text-lg leading-relaxed">
             <p>

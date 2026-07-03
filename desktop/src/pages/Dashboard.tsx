@@ -54,7 +54,21 @@ const Dashboard: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="grid gap-4 sm:grid-cols-2 w-full">
+            <Link
+              to="/introducao-nivel-1"
+              className="inline-flex justify-center px-6 py-3 bg-purple-800 text-purple-100 font-semibold tracking-wider hover:bg-purple-700 transition-all duration-300 border border-purple-500"
+            >
+              Entrar em Introdução Nível 1
+            </Link>
+            <Link
+              to="/introducao-nivel-2"
+              className="inline-flex justify-center px-6 py-3 bg-slate-900 text-purple-100 font-semibold tracking-wider hover:bg-slate-800 transition-all duration-300 border border-purple-500"
+            >
+              Entrar em Introdução Nível 2
+            </Link>
+          </div>
           <Link
             to="/"
             className="inline-block px-6 py-3 border border-purple-500 text-purple-200 hover:bg-purple-800 transition-all duration-300"

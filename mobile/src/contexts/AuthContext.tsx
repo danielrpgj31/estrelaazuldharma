@@ -10,6 +10,8 @@ interface AuthContextType {
   logout: () => Promise<void>;
   register: (username: string, password: string, email: string) => Promise<boolean>;
   contents: Content[];
+  unlockNextLevel: () => Promise<void>;
+  hasMinimumLevel: (requiredLevel: number) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,6 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const defaultAdminUsername = 'admin';
 const defaultAdminEmail = 'admin@estrelaazul.org';
 const defaultAdminPassword = 'admin123';
+const LEVEL_ONE = 1;
 
 const defaultContents: Omit<Content, 'id'>[] = [
   {
@@ -45,6 +48,11 @@ const defaultContents: Omit<Content, 'id'>[] = [
   }
 ];
 
+const ensureAccessLevel = (u: User | StoredUser): number => {
+  const lvl = Number((u as StoredUser).accessLevel);
+  return Number.isFinite(lvl) && lvl >= 1 ? lvl : LEVEL_ONE;
+};
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [contents, setContents] = useState<Content[]>([]);
@@ -59,9 +67,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const adminUser: StoredUser = {
           username: defaultAdminUsername,
           email: defaultAdminEmail,
-          passwordSalt,
           passwordHash,
-          createdAt: new Date().toISOString()
+          passwordSalt,
+          createdAt: new Date().toISOString(),
+          accessLevel: LEVEL_ONE
         };
         await db.addEncryptedUser(adminUser);
       }
@@ -73,7 +82,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       const storedUser = await db.getCurrentUser();
       if (storedUser) {
-        setUser(storedUser);
+        const migrated: User = {
+          ...storedUser,
+          accessLevel: ensureAccessLevel(storedUser)
+        };
+        setUser(migrated);
+        await db.setCurrentUser(migrated);
       }
 
       setContents(await db.contents.toArray());
@@ -94,11 +108,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return false;
     }
 
+    const accessLevel = ensureAccessLevel(foundUser);
     const safeUser: User = {
       id: foundUser.id,
       username: foundUser.username,
       email: foundUser.email,
-      createdAt: foundUser.createdAt
+      createdAt: foundUser.createdAt,
+      accessLevel
     };
     setUser(safeUser);
     await db.setCurrentUser(safeUser);
@@ -127,15 +143,44 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       email,
       passwordSalt,
       passwordHash: await derivePasswordHash(password, passwordSalt),
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      accessLevel: LEVEL_ONE
     };
 
     await db.addEncryptedUser(newUser);
     return true;
   };
 
+  const unlockNextLevel = async () => {
+    if (!user || !user.id) return;
+
+    const currentLevel = ensureAccessLevel(user);
+    const newLevel = Math.min(currentLevel + 1, 3);
+    if (newLevel === currentLevel) return;
+
+    const updated: User = { ...user, accessLevel: newLevel };
+    await db.updateEncryptedUserAccessLevel(user.id, newLevel);
+    await db.setCurrentUser(updated);
+    setUser(updated);
+  };
+
+  const hasMinimumLevel = (requiredLevel: number) => {
+    if (!user) return false;
+    return ensureAccessLevel(user) >= requiredLevel;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, register, contents }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+        register,
+        contents,
+        unlockNextLevel,
+        hasMinimumLevel
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -2,15 +2,31 @@ import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
+const REQUIRED_LEVEL = 1;
+
 const IntroducaoNivel1: React.FC = () => {
-  const { user, contents } = useAuth();
+  const { user, contents, unlockNextLevel, hasMinimumLevel } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
+      return;
     }
-  }, [user]);
+    if (!hasMinimumLevel(REQUIRED_LEVEL)) {
+      navigate('/dashboard');
+      return;
+    }
+    let cancelled = false;
+    unlockNextLevel().then(() => {
+      if (!cancelled) {
+        // Próximo nível liberado em background
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [user, navigate, hasMinimumLevel, unlockNextLevel]);
 
   const videos = contents.filter((content) => content.youtubeUrl);
 

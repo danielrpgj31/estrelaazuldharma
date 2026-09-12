@@ -3,15 +3,22 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import knowledgeOfEvil from '../../imagens/o_conhecimento_do_mal.png';
 
+const REQUIRED_LEVEL = 3;
+
 const OConhecimentoDoMal: React.FC = () => {
-  const { user, contents } = useAuth();
+  const { user, contents, hasMinimumLevel } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
+      return;
     }
-  }, [user]);
+    if (!hasMinimumLevel(REQUIRED_LEVEL)) {
+      navigate('/dashboard');
+      return;
+    }
+  }, [user, navigate, hasMinimumLevel]);
 
   const videos = contents.filter((content) => content.youtubeUrl);
 

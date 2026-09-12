@@ -85,6 +85,28 @@ export class AppDatabase extends Dexie {
   async clearCurrentUser() {
     return this.session.clear();
   }
+
+  async updateEncryptedUserAccessLevel(userId: number, newAccessLevel: number) {
+    const rows = await this.users.toArray();
+    for (const row of rows) {
+      if (row.id !== userId) continue;
+      try {
+        const decrypted = await decryptData(row.encrypted, row.iv);
+        const parsed = JSON.parse(decrypted) as StoredUser;
+        parsed.accessLevel = newAccessLevel;
+        const reEncrypted = await encryptData(JSON.stringify(parsed));
+        if (row.id) {
+          await this.users.update(row.id, {
+            encrypted: reEncrypted.ciphertext,
+            iv: reEncrypted.iv
+          });
+        }
+        return;
+      } catch {
+        continue;
+      }
+    }
+  }
 }
 
 export const db = new AppDatabase();

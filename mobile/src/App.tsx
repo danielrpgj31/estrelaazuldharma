@@ -21,7 +21,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/introducao-nivel-1" element={<IntroducaoNivel1 />} />
           <Route path="/introducao-nivel-2" element={<IntroducaoNivel2 />} />
-          <Route path="/conhecimento-do-mal" element={<OConhecimentoDoMal />} />
+          <Route path="/o-conhecimento-do-mal" element={<OConhecimentoDoMal />} />
         </Routes>
       </Router>
     </AuthProvider>

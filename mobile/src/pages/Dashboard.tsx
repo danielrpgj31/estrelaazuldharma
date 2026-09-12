@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Dashboard: React.FC = () => {
-  const { user, logout, contents } = useAuth();
+  const { user, logout, contents, hasMinimumLevel } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,6 +11,15 @@ const Dashboard: React.FC = () => {
       navigate('/login');
     }
   }, [user]);
+
+  const progress = useMemo(() => {
+    return {
+      current: user?.accessLevel ?? 1,
+      unlocked1: hasMinimumLevel(1),
+      unlocked2: hasMinimumLevel(2),
+      unlocked3: hasMinimumLevel(3)
+    };
+  }, [user, hasMinimumLevel]);
 
   const handleLogout = () => {
     logout();
@@ -54,7 +63,59 @@ const Dashboard: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="w-full">
+            <div className="mb-6 p-4 bg-slate-900/60 border border-purple-700 rounded-xl">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-purple-200 font-semibold tracking-wider text-sm">Progresso nos níveis</p>
+                <span className="text-purple-300 font-serif text-lg">Nível {progress.current} de 3</span>
+              </div>
+              <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden border border-purple-800">
+                <div
+                  className="h-full bg-gradient-to-r from-purple-700 via-purple-500 to-fuchsia-500 transition-all duration-700"
+                  style={{ width: `${Math.max(33, (progress.current / 3) * 100)}%` }}
+                />
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 w-full">
+              {progress.unlocked1 ? (
+                <Link
+                  to="/introducao-nivel-1"
+                  className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-purple-800 text-purple-100 font-semibold tracking-wider hover:bg-purple-700 transition-all duration-300 border border-purple-500"
+                >
+                  ✓ Entrar em Introdução Nível 1
+                </Link>
+              ) : (
+                <div className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-slate-800/60 text-slate-400 font-semibold tracking-wider border border-slate-700 cursor-not-allowed opacity-70">
+                  🔒 Introdução Nível 1 — Bloqueado
+                </div>
+              )}
+              {progress.unlocked2 ? (
+                <Link
+                  to="/introducao-nivel-2"
+                  className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-slate-900 text-purple-100 font-semibold tracking-wider hover:bg-slate-800 transition-all duration-300 border border-purple-500"
+                >
+                  ✓ Entrar em Introdução Nível 2
+                </Link>
+              ) : (
+                <div className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-slate-800/60 text-slate-400 font-semibold tracking-wider border border-slate-700 cursor-not-allowed opacity-70">
+                  🔒 Introdução Nível 2 — Conclua o Nível 1
+                </div>
+              )}
+              {progress.unlocked3 ? (
+                <Link
+                  to="/o-conhecimento-do-mal"
+                  className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-slate-900 text-purple-100 font-semibold tracking-wider hover:bg-slate-800 transition-all duration-300 border border-purple-500"
+                >
+                  ✓ Entrar em O Conhecimento do Mal
+                </Link>
+              ) : (
+                <div className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-slate-800/60 text-slate-400 font-semibold tracking-wider border border-slate-700 cursor-not-allowed opacity-70 sm:col-span-2">
+                  🔒 O Conhecimento do Mal — Conclua o Nível 2
+                </div>
+              )}
+            </div>
+          </div>
           <Link
             to="/"
             className="inline-block px-6 py-3 border border-purple-500 text-purple-200 hover:bg-purple-800 transition-all duration-300"

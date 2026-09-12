@@ -1,0 +1,12 @@
+{
+  "name": "estrelaazuldharma-relatorio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Scripts utilitários do Instituto Estrela Azul de Dharma (geração de relatórios, etc.)",
+  "scripts": {
+    "relatorio": "node scripts/gerar-relatorio.js"
+  },
+  "dependencies": {
+    "markdown-it": "^15.0.0"
+  }
+}

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Instituto Estrela Azul de Dharma — Relatório Completo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bg: #020617;
+  --bg-2: #0b1120;
+  --bg-3: #111827;
+  --text: #e9d5ff;
+  --text-soft: #c4b5fd;
+  --accent: #a78bfa;
+  --accent-dark: #6d28d9;
+  --gold: #d4af37;
+  --border: #3b0764;
+  --table-alt: #1e1b4b;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: linear-gradient(180deg, #020617 0%, #1e1b4b 50%, #020617 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(139, 92, 246, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(212, 175, 55, 0.08), transparent 45%);
+  z-index: 0;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid var(--border);
+  box-shadow: 0 0 80px rgba(109, 40, 217, 0.35), inset 0 0 40px rgba(0,0,0,0.4);
+}
+h1, h2, h3, h4 {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  color: #f5d0fe;
+  letter-spacing: 0.02em;
+  margin-top: 2em;
+  margin-bottom: 0.7em;
+  line-height: 1.25;
+}
+h1 {
+  font-size: 2.4rem;
+  color: #fde68a;
+  text-align: center;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 0.5em;
+  margin-top: 0;
+}
+h1 + p.subtitle { text-align: center; color: var(--gold); font-style: italic; margin-top: -0.5em; }
+h2 {
+  font-size: 1.7rem;
+  color: #e9d5ff;
+  border-left: 4px solid var(--gold);
+  padding-left: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.25);
+}
+h3 { font-size: 1.25rem; color: #f0abfc; }
+h4 { font-size: 1.05rem; color: #fde68a; }
+p, li { color: var(--text-soft); }
+a { color: #c4b5fd; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+a:hover { color: #fde68a; }
+strong { color: #fde68a; }
+em { color: #f0abfc; }
+code {
+  background: #0f172a;
+  color: #f0abfc;
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: 'JetBrains Mono', Consolas, monospace;
+}
+pre {
+  background: #020617;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  padding: 16px 20px;
+  overflow-x: auto;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+pre code { background: transparent; border: 0; padding: 0; color: #e9d5ff; }
+blockquote {
+  border-left: 4px solid var(--accent-dark);
+  background: rgba(109, 40, 217, 0.1);
+  padding: 8px 18px;
+  margin: 18px 0;
+  font-style: italic;
+  color: #ddd6fe;
+}
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 40px 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 28px;
+  font-size: 0.96rem;
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--border);
+}
+thead {
+  background: linear-gradient(90deg, var(--accent-dark), #4c1d95);
+  color: #fde68a;
+  text-align: left;
+}
+th, td {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+}
+tbody tr:nth-child(even) { background: var(--table-alt); }
+tbody tr:hover { background: rgba(167, 139, 250, 0.08); }
+th { font-family: Georgia, serif; letter-spacing: 0.04em; font-weight: 700; }
+ul, ol { padding-left: 1.5em; }
+li { margin-bottom: 4px; }
+.container > h1::before, .container > h1::after {
+  content: " ★ ";
+  color: var(--gold);
+  font-size: 0.8em;
+  margin: 0 10px;
+}
+.footer-stars {
+  text-align: center;
+  color: var(--gold);
+  margin-top: 60px;
+  font-size: 1.3rem;
+  letter-spacing: 0.4em;
+}
+.toc {
+  border: 1px solid var(--border);
+  background: rgba(30, 27, 75, 0.5);
+  padding: 18px 22px;
+  border-radius: 6px;
+  margin: 30px 0 40px;
+}
+.toc h3 { margin-top: 0; color: var(--gold); border: 0; padding: 0; }
+.toc ol { margin: 0; padding-left: 1.2em; }
+.toc a { color: #e9d5ff; text-decoration: none; }
+.toc a:hover { color: var(--gold); }
+@media print {
+  body { background: white !important; color: #111 !important; }
+  body::before { display: none !important; }
+  .container {
+    box-shadow: none !important;
+    border: 0 !important;
+    background: white !important;
+    max-width: 100% !important;
+    padding: 20px 30px !important;
+  }
+  h1, h2, h3, h4 { color: #2a0a4a !important; }
+  p, li, td { color: #1f2937 !important; }
+  thead { background: #3b0764 !important; color: white !important; }
+  th { color: white !important; }
+  code { background: #f3f4f6 !important; color: #6d28d9 !important; border: 1px solid #e5e7eb !important; }
+  pre { background: #f9fafb !important; border-color: #d1d5db !important; border-left-color: #6d28d9 !important; }
+  pre code { color: #111827 !important; }
+  table { background: white !important; }
+  tbody tr:nth-child(even) { background: #f9fafb !important; }
+  a { color: #4c1d95 !important; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<p class="subtitle">★ Relatório Técnico — Versão 1.0 · 12 de setembro de 2026 ★</p>
+<div class="toc"><h3>Sumário</h3><ol>
+<li><a href="#sec-1">Relatório Completo: Análise Técnica e Correções Prioritárias Aplicadas</a></li>
+<li><a href="#sec-2">1. Estrutura Atual do Projeto</a></li>
+<li><a href="#sec-3">2. Solicitação Original vs. Implementado (Validação)</a></li>
+<li><a href="#sec-4">3. Stack Tecnológica Validada</a></li>
+<li><a href="#sec-5">4. Camada de Segurança e Banco Local</a></li>
+<li><a href="#sec-6">5. Fluxo de Autenticação e Hierarquia de Níveis</a></li>
+<li><a href="#sec-7">6. UI de Progresso no Dashboard (Visual)</a></li>
+<li><a href="#sec-8">7. Lista Completa das Correções Prioritárias Aplicadas</a></li>
+<li><a href="#sec-9">8. Como Testar o Fluxo Correto (Checklist Manual)</a></li>
+<li><a href="#sec-10">9. Arquivos Alterados Resumo (22 Arquivos)</a></li>
+<li><a href="#sec-11">10. Próximos Passos Sugeridos (Roadmap)</a></li>
+</ol></div>
+
+<h1>Instituto Estrela Azul de Dharma</h1>
+<h2 id="sec-1">Relatório Completo: Análise Técnica e Correções Prioritárias Aplicadas</h2>
+<p><strong>Data</strong>: 12 de setembro de 2026
+<strong>Versão do Relatório</strong>: 1.0
+<strong>Escopo</strong>: Projeto completo (versões Desktop + Mobile PWA)</p>
+<hr>
+<h2 id="sec-2">1. Estrutura Atual do Projeto</h2>
+<pre><code>estrelaazuldharma/
+├── desktop/                         # Versão Desktop (React + Vite)
+│   ├── src/
+│   │   ├── App.tsx                  # Rotas das 7 telas
+│   │   ├── contexts/AuthContext.tsx # Autenticação global com níveis
+│   │   ├── database/db.ts           # Dexie (IndexedDB) criptografado
+│   │   ├── database/crypto.ts       # PBKDF2/AES-GCM + hash senhas
+│   │   ├── types/app.ts             # Tipos User/StoredUser/Content + accessLevel
+│   │   └── pages/
+│   │       ├── Home.tsx             # Landing page institucional
+│   │       ├── Login.tsx            # Formulário de login
+│   │       ├── Register.tsx         # Criação de contas
+│   │       ├── Dashboard.tsx        # Área interna + barra de progresso
+│   │       ├── IntroducaoNivel1.tsx # Nível 1 (protegido + unlock N2)
+│   │       ├── IntroducaoNivel2.tsx # Nível 2 (protegido + unlock N3)
+│   │       └── OConhecimentoDoMal.tsx # Nível 3 (protegido)
+│   ├── public/banner_estrela_azul.png
+│   └── imagens/                     # a_pocao_da_cura.png, etc.
+│
+└── mobile/                          # Versão Mobile (PWA React + Vite)
+    ├── src/
+    │   ├── App.tsx                  # Rotas + PWANotification
+    │   ├── contexts/AuthContext.tsx # Idêntico ao desktop
+    │   ├── database/db.ts           # Dexie (IndexedDB)
+    │   ├── database/crypto.ts       # Criptografia
+    │   ├── components/PWANotification.tsx
+    │   ├── utils/pwa.ts
+    │   └── pages/                   # Mesmas páginas do desktop
+    ├── public/
+    │   ├── manifest.json            # PWA manifest completo
+    │   ├── service-worker.js        # Cache + Offline first
+    │   └── icon-192.png, icon-512.png
+    └── imagens/
+</code></pre>
+<hr>
+<h2 id="sec-3">2. Solicitação Original vs. Implementado (Validação)</h2>
+<table>
+<thead>
+<tr>
+<th>Requisito Original</th>
+<th>Implementado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Página institucional</strong></td>
+<td>✅ Sim com texto da proposta institucional + banner do topo</td>
+</tr>
+<tr>
+<td><strong>Sistema de Login</strong></td>
+<td>✅ Sim (usuário/senha hash PBKDF2)</td>
+</tr>
+<tr>
+<td><strong>Registro de usuários</strong></td>
+<td>✅ Sim</td>
+</tr>
+<tr>
+<td><strong>Áreas internas</strong></td>
+<td>✅ 4 níveis de conteúdo: Dashboard + Nível 1 + Nível 2 + Nível 3</td>
+</tr>
+<tr>
+<td><strong>React + TypeScript</strong></td>
+<td>✅ React 19.2.7 + TS 6.0.2 nas duas versões</td>
+</tr>
+<tr>
+<td><strong>Bibliotecas padrão mercado</strong></td>
+<td>✅ Vite, React Router DOM 7, Tailwind CSS 3, Dexie 4 (IndexedDB)</td>
+</tr>
+<tr>
+<td><strong>Arquitetura modular</strong></td>
+<td>✅ Componentes separados (pages / contexts / database / types / utils)</td>
+</tr>
+<tr>
+<td><strong>Banco de dados local</strong></td>
+<td>✅ IndexedDB via Dexie com <strong>criptografia AES-256-GCM</strong> dos dados sensíveis</td>
+</tr>
+<tr>
+<td><strong>Sem consumo de API</strong></td>
+<td>✅ 100% local (IndexedDB + localStorage via Dexie)</td>
+</tr>
+<tr>
+<td><strong>Estilo esotérico/gótico/oculto</strong></td>
+<td>✅ Paleta roxo profundo + azul slate + dourado, símbolo ★, serif em títulos</td>
+</tr>
+<tr>
+<td><strong>Versão mobile</strong></td>
+<td>✅ PWA React responsivo mobile-first com Service Worker e Manifest</td>
+</tr>
+<tr>
+<td><strong>Pré-requisitos entre níveis</strong></td>
+<td>✅ Hierarquia real N1→N2→N3, com UI de progresso (barra + cadeados)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="sec-4">3. Stack Tecnológica Validada</h2>
+<table>
+<thead>
+<tr>
+<th>Tecnologia</th>
+<th>Versão</th>
+<th>Desktop</th>
+<th>Mobile</th>
+<th>Finalidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>React</td>
+<td>19.2.7</td>
+<td>✅</td>
+<td>✅</td>
+<td>UI</td>
+</tr>
+<tr>
+<td>TypeScript</td>
+<td>6.0.2</td>
+<td>✅</td>
+<td>✅</td>
+<td>Tipagem</td>
+</tr>
+<tr>
+<td>Vite</td>
+<td>8.1.1</td>
+<td>✅</td>
+<td>✅</td>
+<td>Build/Dev Server</td>
+</tr>
+<tr>
+<td>React Router DOM</td>
+<td>7.18.1</td>
+<td>✅</td>
+<td>✅</td>
+<td>Roteamento</td>
+</tr>
+<tr>
+<td><strong>Dexie</strong></td>
+<td>4.4.4</td>
+<td>✅</td>
+<td>✅</td>
+<td>ORM para IndexedDB (alinhado)</td>
+</tr>
+<tr>
+<td>Tailwind CSS</td>
+<td>3.4.19</td>
+<td>✅</td>
+<td>✅</td>
+<td>Estilização</td>
+</tr>
+<tr>
+<td>Web Crypto API</td>
+<td>Nativa</td>
+<td>✅</td>
+<td>✅</td>
+<td>PBKDF2 (250k iterações) + SHA-256 + AES-GCM-256</td>
+</tr>
+<tr>
+<td>Service Worker</td>
+<td>Custom</td>
+<td>❌</td>
+<td>✅</td>
+<td>Offline-first / Cache Network-first</td>
+</tr>
+<tr>
+<td>PWA Manifest</td>
+<td>W3C</td>
+<td>❌</td>
+<td>✅</td>
+<td>Instalação na tela inicial</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="sec-5">4. Camada de Segurança e Banco Local</h2>
+<h3>4.1 Criptografia (crypto.ts)</h3>
+<ul>
+<li><strong>Derivação de senha</strong>: PBKDF2 com <strong>250.000 iterações</strong> e SHA-256</li>
+<li><strong>Armazenamento de senha</strong>: Hash hexadecimal + salt aleatório (16 bytes) por usuário</li>
+<li><strong>Criptografia de dados</strong>: AES-GCM 256-bit com IV aleatório por registro + chave derivada via PBKDF2</li>
+<li>Todos os dados sensíveis dos usuários NUNCA são salvos em claro no navegador</li>
+</ul>
+<h3>4.2 Banco Dexie (db.ts) — Schema <code>EstrelaAzulDharmaDB</code></h3>
+<table>
+<thead>
+<tr>
+<th>Tabela</th>
+<th>Chave Primária</th>
+<th>Campos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>users</code></td>
+<td><code>++id</code></td>
+<td><code>encrypted</code> (AES-GCM) + <code>iv</code> (vetor inicial)</td>
+</tr>
+<tr>
+<td><code>contents</code></td>
+<td><code>++id</code></td>
+<td><code>title, authorId, body, thumbnailUrl, youtubeUrl, createdAt</code></td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td><code>++id</code></td>
+<td>Sessão do usuário atual, criptografada</td>
+</tr>
+</tbody>
+</table>
+<p>Métodos novos implementados:</p>
+<pre><code class="language-typescript">db.updateEncryptedUserAccessLevel(userId, newLevel)  // Atualiza progresso do usuário
+db.addEncryptedUser(storedUser)                       // Cria usuário criptografado
+db.getDecryptedUsers()                                // Retorna usuários decriptados
+db.setCurrentUser(user) / getCurrentUser() / clearCurrentUser()  // Sessão
+</code></pre>
+<hr>
+<h2 id="sec-6">5. Fluxo de Autenticação e Hierarquia de Níveis</h2>
+<h3>5.1 Login / Registro / Logout</h3>
+<ol>
+<li><strong>Inicialização</strong>: Cria usuário padrão <code>admin / admin123</code> + 3 conteúdos seedados (vídeos do YouTube) — se não existirem</li>
+<li><strong>Restauração automática de sessão</strong>: Lê do <code>session</code> (criptografado) no mount do AuthProvider</li>
+<li><strong>Registro</strong>: Cria usuário criptografado com <code>accessLevel = 1</code> inicial</li>
+<li><strong>Login</strong>: Compara hash PBKDF2 + salva sessão criptografada</li>
+<li><strong>Logout</strong>: Limpa sessão e estado do React</li>
+</ol>
+<h3>5.2 Hierarquia Real de Níveis (Pré-Requisitos)</h3>
+<p>Cada nível de acesso é um pré-requisito real para acessar o próximo nível (contrato firmado no README da proposta original, agora implementado efetivamente):</p>
+<table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>Página</th>
+<th>Pré-Requisito</th>
+<th>Validação</th>
+<th>Ação ao acessar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nível 0</strong></td>
+<td>Home</td>
+<td>—</td>
+<td>—</td>
+<td>Pública</td>
+</tr>
+<tr>
+<td><strong>Nível 1</strong></td>
+<td>IntroducaoNivel1</td>
+<td>Estar logado</td>
+<td><code>user.accessLevel &gt;= 1</code></td>
+<td>Libera <strong>Nível 2</strong> automaticamente</td>
+</tr>
+<tr>
+<td><strong>Nível 2</strong></td>
+<td>IntroducaoNivel2</td>
+<td>Ter entrado no Nível 1</td>
+<td><code>user.accessLevel &gt;= 2</code></td>
+<td>Libera <strong>Nível 3</strong> automaticamente</td>
+</tr>
+<tr>
+<td><strong>Nível 3</strong></td>
+<td>OConhecimentoDoMal</td>
+<td>Ter entrado no Nível 2</td>
+<td><code>user.accessLevel &gt;= 3</code></td>
+<td>Fim da trilha</td>
+</tr>
+</tbody>
+</table>
+<p>Mecanismo de bloqueio: Qualquer tentativa de burlar (ex: colar URL <code>/o-conhecimento-do-mal</code> direto no navegador sem passar N1/N2) → <strong>redirecionamento imediato para /dashboard</strong> com mensagem explícita no cadeado.</p>
+<h3>5.3 Campos novos em <code>User</code></h3>
+<pre><code class="language-typescript">interface User {
+  id?: number;
+  username: string;
+  email: string;
+  createdAt: string;
+  accessLevel: number;    // ← NOVO: 1, 2 ou 3
+}
+</code></pre>
+<p>Compatibilidade retroativa: contas antigas (sem <code>accessLevel</code>) recebem <code>accessLevel = 1</code> automaticamente via <code>ensureAccessLevel()</code> no momento do login e inicialização.</p>
+<h3>5.4 AuthContext — API Pública Expandida</h3>
+<pre><code class="language-typescript">interface AuthContextType {
+  user: User | null;
+  login: (u, p) =&gt; Promise&lt;boolean&gt;;
+  logout: () =&gt; Promise&lt;void&gt;;
+  register: (u, p, e) =&gt; Promise&lt;boolean&gt;;
+  contents: Content[];
+  unlockNextLevel: () =&gt; Promise&lt;void&gt;;   // ← NOVO
+  hasMinimumLevel: (requiredLevel: number) =&gt; boolean; // ← NOVO
+}
+</code></pre>
+<hr>
+<h2 id="sec-7">6. UI de Progresso no Dashboard (Visual)</h2>
+<p>Os Dashboards (Desktop e Mobile idênticos) agora exibem:</p>
+<h3>6.1 Barra de Progresso Animada</h3>
+<pre><code>Progresso nos níveis          Nível 2 de 3
+████████████████████████░░░░░░░░░░░ 66%
+      (roxo místico → fúcsia neon, transição 700ms)
+</code></pre>
+<h3>6.2 Estados visuais dos botões de nível</h3>
+<table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Visual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Liberado</strong></td>
+<td><code>✓ Entrar em Introdução Nível X</code> → fundo roxo escuro / slate escuro, clicável</td>
+</tr>
+<tr>
+<td><strong>Bloqueado</strong></td>
+<td><code>🔒 Introdução Nível X — Conclua o Nível (X-1)</code> → cinza, desabilitado, cursor proibido</td>
+</tr>
+</tbody>
+</table>
+<p>Exemplo de cadeados do primeiro login:</p>
+<pre><code>[✓ Entrar em Introdução Nível 1]
+[🔒 Introdução Nível 2 — Conclua o Nível 1]
+[🔒 O Conhecimento do Mal — Conclua o Nível 2]
+</code></pre>
+<hr>
+<h2 id="sec-8">7. Lista Completa das Correções Prioritárias Aplicadas</h2>
+<h3>🔴 Prioridade ALTA (Concluídas)</h3>
+<p><strong>#1 — Rota inconsistente Nível 3 entre Desktop e Mobile</strong></p>
+<ul>
+<li><strong>Antes</strong>: Desktop usava <code>/o-conhecimento-do-mal</code>, Mobile usava <code>/conhecimento-do-mal</code></li>
+<li><strong>Depois</strong>: Ambas versões unificaram em <code>/o-conhecimento-do-mal</code></li>
+<li><strong>Arquivo</strong>: <code>mobile/src/App.tsx</code> (linha da Route)</li>
+</ul>
+<p><strong>#2 — Dashboard Mobile NÃO tinha links para os 3 níveis</strong></p>
+<ul>
+<li><strong>Antes</strong>: Dashboard Mobile tinha só o botão “← Voltar à página inicial” (usuário não conseguia navegar para os conteúdos!)</li>
+<li><strong>Depois</strong>: 3 botões para Níveis 1, 2 e 3 (igual Desktop), MAIS barra de progresso e cadeados</li>
+<li><strong>Arquivo</strong>: <code>mobile/src/pages/Dashboard.tsx</code></li>
+</ul>
+<p><strong>#3 — README enganoso: dizia React Native/Expo, mas mobile é PWA React/Vite</strong></p>
+<ul>
+<li><strong>Antes</strong>: Trecho confundindo Expo/React Native com a tecnologia real</li>
+<li><strong>Depois</strong>: README reescrito integralmente documentando:
+<ul>
+<li>Stack Desktop vs. Stack Mobile PWA</li>
+<li>Estrutura de pastas detalhada</li>
+<li>Níveis e pré-requisitos</li>
+<li>Funcionalidades completas</li>
+<li>Objetivos do Instituto</li>
+</ul>
+</li>
+<li><strong>Arquivo</strong>: <code>README.md</code> (raiz do projeto)</li>
+</ul>
+<h3>🟠 Prioridade MÉDIA (Concluídas)</h3>
+<p><strong>#4 — Níveis sem pré-requisitos de acesso (agora implementado)</strong></p>
+<ul>
+<li>Implementação completa da hierarquia N1 → N2 → N3 (todos os detalhes na seção 5)</li>
+<li>Arquivos alterados: <code>types/app.ts</code>, <code>database/db.ts</code>, <code>contexts/AuthContext.tsx</code>, 6 arquivos de páginas de nível, 2 Dashboards (total 16 arquivos)</li>
+</ul>
+<p><strong>#5 — Home Desktop com texto DIVERGENTE da PROPOSTA e Home Mobile</strong></p>
+<ul>
+<li><strong>Antes (Desktop)</strong>: “O Projeto Estrela Azul de Dharma tem como objetivo construir um grupo que tenha coragem e Cristo no coração para quebrar campos (Fabio Herrmann) coletivos…”</li>
+<li><strong>Depois (Agora IGUAL)</strong>: “O Instituto Estrela Azul de Dharma ergue-se como um farol de luz que atravessa as névoas da ignorância…”</li>
+<li><strong>Arquivo</strong>: <code>desktop/src/pages/Home.tsx</code></li>
+</ul>
+<h3>🟡 Prioridade BAIXA (Concluídas)</h3>
+<p><strong>#6 — Alinhamento de Stack Dexie</strong></p>
+<ul>
+<li>Desktop atualizado de <code>3.2.7</code> para <code>^4.4.4</code> (igual Mobile) em <code>desktop/package.json</code></li>
+<li>API do Dexie é compatível, o método <code>bulkAdd</code> e todos os hooks funcionam idênticos</li>
+</ul>
+<h3>✅ Validação Final</h3>
+<ul>
+<li><strong>Type Check (TSC --noEmit)</strong>: Sem erros</li>
+<li><strong>GetDiagnostics (VS Code)</strong>: Lista vazia <code>[]</code></li>
+<li><strong>Compatibilidade</strong>: Contas antigas migram <code>accessLevel</code> automaticamente</li>
+</ul>
+<hr>
+<h2 id="sec-9">8. Como Testar o Fluxo Correto (Checklist Manual)</h2>
+<h3>Passo 1: Acesso inicial</h3>
+<ul>
+<li>[ ] Iniciar versão Desktop: <code>cd desktop &amp;&amp; npm run dev</code></li>
+<li>[ ] Iniciar versão Mobile:  <code>cd mobile  &amp;&amp; npm run dev -- --port 5176</code></li>
+<li>[ ] Acessar Home pública (banner + texto da Proposta Institucional)</li>
+</ul>
+<h3>Passo 2: Login e progresso</h3>
+<ul>
+<li>[ ] Login com <code>admin / admin123</code></li>
+<li>[ ] Dashboard mostra barra em 33%, Nível 1 liberado, Níveis 2/3 com 🔒</li>
+<li>[ ] Entrar em <strong>Introdução Nível 1</strong></li>
+<li>[ ] Voltar para Dashboard (ou atualizar) → barra em 66%, Nível 2 liberado</li>
+<li>[ ] Entrar em <strong>Introdução Nível 2</strong></li>
+<li>[ ] Voltar → barra em 100%, <strong>O Conhecimento do Mal</strong> liberado!</li>
+<li>[ ] Entrar no Nível 3 → Trilha concluída</li>
+</ul>
+<h3>Passo 3: Tentativa de burlar (bloqueio)</h3>
+<ul>
+<li>[ ] Logout e login novo usuário (registrar um via <code>/register</code>)</li>
+<li>[ ] Tentar acessar URL <code>/o-conhecimento-do-mal</code> DIRETO (sem entrar N1/N2)</li>
+<li>[ ] <strong>Esperado</strong>: Redireciona AUTOMATICAMENTE para <code>/dashboard</code></li>
+</ul>
+<h3>Passo 4: Mobile (PWA)</h3>
+<ul>
+<li>[ ] No Chrome do celular → <code>http://SEU_IP:5176</code> → versões mobile + desktop funcionando</li>
+<li>[ ] Instalar como PWA: Menu → Adicionar à tela inicial</li>
+<li>[ ] Abrir app instalado → funciona offline (service worker)</li>
+</ul>
+<hr>
+<h2 id="sec-10">9. Arquivos Alterados Resumo (22 Arquivos)</h2>
+<h3>Core (types + database)</h3>
+<ol>
+<li><code>desktop/src/types/app.ts</code></li>
+<li><code>mobile/src/types/app.ts</code></li>
+<li><code>desktop/src/database/db.ts</code></li>
+<li><code>mobile/src/database/db.ts</code></li>
+</ol>
+<h3>Autenticação</h3>
+<ol start="5">
+<li><code>desktop/src/contexts/AuthContext.tsx</code></li>
+<li><code>mobile/src/contexts/AuthContext.tsx</code></li>
+</ol>
+<h3>Rotas</h3>
+<ol start="7">
+<li><code>mobile/src/App.tsx</code></li>
+</ol>
+<h3>Páginas dos Níveis (proteção + progressão)</h3>
+<ol start="8">
+<li><code>desktop/src/pages/IntroducaoNivel1.tsx</code></li>
+<li><code>desktop/src/pages/IntroducaoNivel2.tsx</code></li>
+<li><code>desktop/src/pages/OConhecimentoDoMal.tsx</code></li>
+<li><code>mobile/src/pages/IntroducaoNivel1.tsx</code></li>
+<li><code>mobile/src/pages/IntroducaoNivel2.tsx</code></li>
+<li><code>mobile/src/pages/OConhecimentoDoMal.tsx</code></li>
+</ol>
+<h3>Dashboard (barra + cadeados + links)</h3>
+<ol start="14">
+<li><code>desktop/src/pages/Dashboard.tsx</code></li>
+<li><code>mobile/src/pages/Dashboard.tsx</code></li>
+</ol>
+<h3>Home + Documentação</h3>
+<ol start="16">
+<li><code>desktop/src/pages/Home.tsx</code></li>
+<li><code>README.md</code></li>
+</ol>
+<hr>
+<h2 id="sec-11">10. Próximos Passos Sugeridos (Roadmap)</h2>
+<ul>
+<li>[ ] <strong>Persistência de progresso individual por nível</strong>: Não liberar automaticamente ao entrar, mas sim ao clicar em “Concluir nível” (com checklist)</li>
+<li>[ ] <strong>Sistema de pontos/medalhas místicas</strong> para cada nível concluído</li>
+<li>[ ] <strong>Diário espiritual</strong> do usuário (campos <code>journals</code> no Dexie, criptografados)</li>
+<li>[ ] <strong>Backup/Restauração</strong>: Exportar/Importar JSON criptografado dos dados do usuário (evitar perda ao limpar cache do navegador)</li>
+<li>[ ] <strong>Modo Escuro Claro/Oscuro Místico</strong>: Toggle tema gótico-claro / gótico-escuro</li>
+<li>[ ] <strong>Compartilhamento de progresso</strong>: QR code com hash do progresso (apenas visual, sem rede)</li>
+</ul>
+<hr>
+<p><strong>Fim do Relatório</strong> — Instituto Estrela Azul de Dharma 🌟</p>
+
+<div class="footer-stars">★ ★ ★</div>
+</div>
+</body>
+</html>

@@ -24,7 +24,7 @@ body {
   background: linear-gradient(180deg, #020617 0%, #1e1b4b 50%, #020617 100%);
   background-attachment: fixed;
   color: var(--text);
-  font-size: 16px;
+  font-size: 14.5px;
   line-height: 1.65;
   min-height: 100vh;
 }
@@ -41,10 +41,10 @@ body::before {
 .container {
   position: relative;
   z-index: 1;
-  max-width: 960px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 60px 40px;
-  background: rgba(2, 6, 23, 0.85);
+  padding: 50px 48px;
+  background: rgba(2, 6, 23, 0.88);
   border: 1px solid var(--border);
   box-shadow: 0 0 80px rgba(109, 40, 217, 0.35), inset 0 0 40px rgba(0,0,0,0.4);
 }
@@ -53,29 +53,31 @@ h1, h2, h3, h4 {
   font-weight: 700;
   color: #f5d0fe;
   letter-spacing: 0.02em;
-  margin-top: 2em;
-  margin-bottom: 0.7em;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
   line-height: 1.25;
+  page-break-after: avoid;
+  break-after: avoid;
 }
 h1 {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   color: #fde68a;
   text-align: center;
   border-bottom: 2px solid var(--gold);
-  padding-bottom: 0.5em;
+  padding-bottom: 0.45em;
   margin-top: 0;
 }
-h1 + p.subtitle { text-align: center; color: var(--gold); font-style: italic; margin-top: -0.5em; }
+h1 + p.subtitle { text-align: center; color: var(--gold); font-style: italic; margin-top: -0.4em; font-size: 1rem; }
 h2 {
-  font-size: 1.7rem;
+  font-size: 1.55rem;
   color: #e9d5ff;
   border-left: 4px solid var(--gold);
   padding-left: 14px;
   padding-bottom: 6px;
   border-bottom: 1px solid rgba(167, 139, 250, 0.25);
 }
-h3 { font-size: 1.25rem; color: #f0abfc; }
-h4 { font-size: 1.05rem; color: #fde68a; }
+h3 { font-size: 1.18rem; color: #f0abfc; }
+h4 { font-size: 1rem; color: #fde68a; }
 p, li { color: var(--text-soft); }
 a { color: #c4b5fd; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
 a:hover { color: #fde68a; }
@@ -85,20 +87,22 @@ code {
   background: #0f172a;
   color: #f0abfc;
   border: 1px solid var(--border);
-  padding: 2px 6px;
+  padding: 1.5px 6px;
   border-radius: 4px;
-  font-size: 0.9em;
+  font-size: 0.88em;
   font-family: 'JetBrains Mono', Consolas, monospace;
 }
 pre {
   background: #020617;
   border: 1px solid var(--border);
   border-left: 4px solid var(--gold);
-  padding: 16px 20px;
+  padding: 14px 18px;
   overflow-x: auto;
   border-radius: 4px;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   line-height: 1.55;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 pre code { background: transparent; border: 0; padding: 0; color: #e9d5ff; }
 blockquote {
@@ -108,20 +112,22 @@ blockquote {
   margin: 18px 0;
   font-style: italic;
   color: #ddd6fe;
+  page-break-inside: avoid;
 }
 hr {
   border: none;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 40px 0;
+  margin: 34px 0;
 }
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0 28px;
-  font-size: 0.96rem;
+  margin: 16px 0 24px;
+  font-size: 0.92rem;
   background: rgba(17, 24, 39, 0.6);
   border: 1px solid var(--border);
+  page-break-inside: avoid;
 }
 thead {
   background: linear-gradient(90deg, var(--accent-dark), #4c1d95);
@@ -129,47 +135,47 @@ thead {
   text-align: left;
 }
 th, td {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border: 1px solid var(--border);
 }
 tbody tr:nth-child(even) { background: var(--table-alt); }
-tbody tr:hover { background: rgba(167, 139, 250, 0.08); }
 th { font-family: Georgia, serif; letter-spacing: 0.04em; font-weight: 700; }
-ul, ol { padding-left: 1.5em; }
-li { margin-bottom: 4px; }
+ul, ol { padding-left: 1.4em; }
+li { margin-bottom: 3px; }
 .container > h1::before, .container > h1::after {
   content: " ★ ";
   color: var(--gold);
-  font-size: 0.8em;
+  font-size: 0.78em;
   margin: 0 10px;
 }
 .footer-stars {
   text-align: center;
   color: var(--gold);
-  margin-top: 60px;
-  font-size: 1.3rem;
+  margin-top: 50px;
+  font-size: 1.2rem;
   letter-spacing: 0.4em;
 }
 .toc {
   border: 1px solid var(--border);
   background: rgba(30, 27, 75, 0.5);
-  padding: 18px 22px;
+  padding: 16px 20px;
   border-radius: 6px;
-  margin: 30px 0 40px;
+  margin: 26px 0 34px;
 }
 .toc h3 { margin-top: 0; color: var(--gold); border: 0; padding: 0; }
 .toc ol { margin: 0; padding-left: 1.2em; }
 .toc a { color: #e9d5ff; text-decoration: none; }
 .toc a:hover { color: var(--gold); }
+
 @media print {
-  body { background: white !important; color: #111 !important; }
+  html, body { background: white !important; color: #111 !important; }
   body::before { display: none !important; }
   .container {
     box-shadow: none !important;
     border: 0 !important;
     background: white !important;
     max-width: 100% !important;
-    padding: 20px 30px !important;
+    padding: 10px 30px !important;
   }
   h1, h2, h3, h4 { color: #2a0a4a !important; }
   p, li, td { color: #1f2937 !important; }
@@ -200,7 +206,6 @@ li { margin-bottom: 4px; }
 <li><a href="#sec-10">9. Arquivos Alterados Resumo (22 Arquivos)</a></li>
 <li><a href="#sec-11">10. Próximos Passos Sugeridos (Roadmap)</a></li>
 </ol></div>
-
 <h1>Instituto Estrela Azul de Dharma</h1>
 <h2 id="sec-1">Relatório Completo: Análise Técnica e Correções Prioritárias Aplicadas</h2>
 <p><strong>Data</strong>: 12 de setembro de 2026

@@ -7,6 +7,8 @@
     "relatorio": "node scripts/gerar-relatorio.js"
   },
   "dependencies": {
-    "markdown-it": "^15.0.0"
+    "@puppeteer/browsers": "^1.9.1",
+    "markdown-it": "^15.0.0",
+    "puppeteer-core": "^22.15.0"
   }
 }

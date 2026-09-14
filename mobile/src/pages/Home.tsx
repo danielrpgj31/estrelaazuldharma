@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import InstallPWAButton from '../components/InstallPWAButton';
 
 const Home: React.FC = () => {
   return (
@@ -46,6 +47,11 @@ const Home: React.FC = () => {
           <Link to="/login" className="px-10 py-4 bg-purple-800 text-purple-100 font-semibold tracking-wider hover:bg-purple-700 transition-all duration-300 border border-purple-500">
             INICIAR A JORNADA
           </Link>
+        </div>
+
+        {/* Botão de instalação PWA + instruções */}
+        <div className="mt-12">
+          <InstallPWAButton />
         </div>
       </section>
 
